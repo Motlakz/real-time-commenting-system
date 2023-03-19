@@ -1,0 +1,76 @@
+@import url("https://fonts.google.com/specimen/Rubik");
+
+* {
+    box-sizing: border-box;
+    font-family: 'Rubik', 'Roboto', sans-serif;
+    margin: 0 auto;
+}
+:root {
+    --card-background-color: #c1f7dc;
+    --count-background-color: #4bc0d9;
+    --primary-border-color: #d7d7d7;
+    --replies-bg-color: #76e5fc;
+    --link-color: rgb(142, 59, 150);
+    
+    --primary-background-color: rgb(3, 29, 3);
+    --text-color: blue;
+}
+
+body {
+    background-color: var(--primary-background-color);
+
+}
+main {
+    width: 750px; /*Placeholder*/
+}
+.comment-card {
+    color: var(--text-color);
+    background-color: var(--card-background-color);
+    border-radius: 10px;
+    margin: 20px;
+    padding: 20px;
+}
+.replies li {
+    background-color: var(--replies-bg-color);
+    border-radius: 10px;
+    list-style: none;
+    margin: 20px;
+    padding: 20px;
+}
+.replies {
+    background: var(--primary-background-color);
+    border-left: 2px solid var(--primary-border-color);
+    color: var(--text-color);
+    padding: 0;
+    margin-left: 40px;
+}
+.flex {
+    display: flex;
+}
+img {
+    width: 32px;
+    height: 32px;
+}
+.vote {
+    background-color: var(--primary-border-color);
+    font-size: 18px;
+    border-radius: 10px;
+    color: var(--link-color);
+    padding: 10px;  
+}
+button.upvote,
+button.downvote {
+    border: none;
+    background-color: var(--primary-border-color);
+    color: var(--primary-background-color);
+    cursor: pointer;
+    font-size: 20px;
+    padding: 0 10px;
+}
+button {
+    background-color: var(--link-color);
+    color: #fff;
+}
+a {
+    color: var(--link-color);
+}
