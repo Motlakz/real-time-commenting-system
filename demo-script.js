@@ -1,4 +1,6 @@
-fetch('data.json')
+// THIS CODE WILL POTENTIALLY BE USED WITH REACT WHEN IT BECOMES A FULL STACK APP WITH THE USE OF FRAMEWORKS
+
+/*fetch('data.json')
   .then(response => response.json())
   .then(data => {
     const currentUser = data.currentUser;
@@ -52,7 +54,7 @@ fetch('data.json')
       }
     });
 
-    // Create currentUser HTML element
+    // Create currentUser HTML element for a user that is viewing and about to make a new comment or send a reply
     const currentUserElement = document.createElement('div');
     currentUserElement.classList.add('comment-card');
 
@@ -67,10 +69,10 @@ fetch('data.json')
     `;
     commentsSection.appendChild(currentUserElement);
 
-
   })
 
   // throw an error to the console if the data doesn't reflect
   .catch(error => {
     console.error('Error fetching JSON data:', error);
   });
+*/

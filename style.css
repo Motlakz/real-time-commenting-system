@@ -21,56 +21,70 @@ body {
 
 }
 main {
-    width: 750px; /*Placeholder*/
+    max-width: 750px; /*Placeholder*/
 }
+.votes {
+    background-color: var(--link-color);
+    border-radius: 8px;
+    font-size: 20px;
+    padding: 10px;
+}
+.votes img {
+    cursor: pointer;
+    margin: 0 20px;
+}
+.count {
+    color: var(--primary-background-color)
+}
+.details img {
+    height: 40px;
+    width: 40px;
+}
+.details {
+    padding: 20px;
+}
+.details small {
+    margin-left: 20px;
+}
+.new-comment-card,
 .comment-card {
-    color: var(--text-color);
     background-color: var(--card-background-color);
     border-radius: 10px;
-    margin: 20px;
-    padding: 20px;
-}
-.replies li {
-    background-color: var(--replies-bg-color);
-    border-radius: 10px;
-    list-style: none;
-    margin: 20px;
-    padding: 20px;
-}
-.replies {
-    background: var(--primary-background-color);
-    border-left: 2px solid var(--primary-border-color);
     color: var(--text-color);
-    padding: 0;
+    margin: 20px 0;
+    padding: 10px;
+}
+
+ul{
+    border-left: 2px solid var(--primary-border-color);
+  
     margin-left: 40px;
 }
-.flex {
-    display: flex;
-}
-img {
-    width: 32px;
-    height: 32px;
-}
-.vote {
-    background-color: var(--primary-border-color);
-    font-size: 18px;
+li {
+    background-color: var(--replies-bg-color);
     border-radius: 10px;
-    color: var(--link-color);
-    padding: 10px;  
+    color: var(--text-color);
+    list-style: none;
+    margin: 20px 0;
+    padding: 10px
 }
-button.upvote,
-button.downvote {
-    border: none;
-    background-color: var(--primary-border-color);
-    color: var(--primary-background-color);
-    cursor: pointer;
-    font-size: 20px;
-    padding: 0 10px;
+.comment-card p,
+li p {
+    margin: 0;
 }
-button {
-    background-color: var(--link-color);
-    color: #fff;
+
+textarea {
+    border-radius: 8px;
+    max-width: 500px;
 }
-a {
-    color: var(--link-color);
+
+.cross {
+    font-size: 18px;
+}
+.reply-btn {
+    float: right;
+}
+
+.modal {
+    display: none;
 }
