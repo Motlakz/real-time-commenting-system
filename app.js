@@ -20,7 +20,13 @@ fetch("data.json")
       commentElement.innerHTML = `
         <div class="comment-card">
             <span class="votes">
-            <img src="./images/icon-plus.svg">${comment.score}<img src="./images/icon-minus.svg">
+              <div class="upvote">
+                <img src="./images/icon-plus.svg">
+              </div>
+              <span class="count">${comment.score}</span>
+              <div class="downvote">
+                <img src="./images/icon-minus.svg">
+              </div>
             </span>
             <div class="details">
                 <img src="${comment.user.image.png}" srcset="${comment.user.image.png} 1x, ${comment.user.image.webp} 2x" alt="${comment.user.username}">
@@ -47,7 +53,13 @@ fetch("data.json")
             <li>
                 <div class="replies">
                     <span class="votes">
-                        <img src="./images/icon-plus.svg">${reply.score}<img src="./images/icon-minus.svg">
+                      <div class="upvote">
+                        <img src="./images/icon-plus.svg">
+                      </div>
+                      <span class="count">${reply.score}</span>
+                      <div class="downvote">
+                        <img src="./images/icon-minus.svg">
+                      </div>
                     </span>
             
                     <div class="details">
@@ -70,6 +82,37 @@ fetch("data.json")
         commentsSection.appendChild(repliesElement);
       }
     });
+    
+    function handleVoteClick(event, increment) {
+      const countElement = event.target.closest('.votes').querySelector('.count');
+      let currentCount = parseInt(countElement.innerText);
+      
+      if (increment) {
+        currentCount++;
+      } else {
+        currentCount--;
+        if (currentCount < 0) { 
+          currentCount = 0;
+        }
+      }
+      
+      countElement.innerText = currentCount;
+    }
+    
+    const upvoteElements = document.querySelectorAll('.upvote');
+    upvoteElements.forEach((upvoteElement) => {
+      upvoteElement.addEventListener('click', (event) => {
+        handleVoteClick(event, true);
+      });
+    });
+    
+    const downvoteElements = document.querySelectorAll('.downvote');
+    downvoteElements.forEach((downvoteElement) => {
+      downvoteElement.addEventListener('click', (event) => {
+        handleVoteClick(event, false);
+      });
+    });
+    
 
     // Create currentUser HTML element for a user that is viewing and about to make a new comment or send a reply
     const currentUserElement = document.createElement('div');

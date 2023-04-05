@@ -24,17 +24,31 @@ main {
     max-width: 750px; /*Placeholder*/
 }
 .votes {
-    background-color: var(--link-color);
+    background-color: var(--primary-border-color);
     border-radius: 8px;
     font-size: 20px;
-    padding: 10px;
+    margin-top: 40px;
+    padding: 5px;
+    position: absolute;
+    text-align: center;
 }
-.votes img {
+
+.upvote img,
+.downvote img {
+    background-color: var(--text-color);
+    border-radius: 50%;
+    padding: 5px;
+}
+.upvote,
+.downvote {
     cursor: pointer;
-    margin: 0 20px;
+}
+.upvote img:hover,
+.downvote img:hover {
+    transform: scale(1.2);
 }
 .count {
-    color: var(--primary-background-color)
+    color: var(--primary-background-color);
 }
 .details img {
     height: 40px;
@@ -43,6 +57,7 @@ main {
 .details {
     padding: 20px;
 }
+.details,
 .details small {
     margin-left: 20px;
 }
@@ -52,12 +67,11 @@ main {
     border-radius: 10px;
     color: var(--text-color);
     margin: 20px 0;
-    padding: 10px;
+    padding: 4px;
 }
 
 ul{
     border-left: 2px solid var(--primary-border-color);
-  
     margin-left: 40px;
 }
 li {
@@ -66,11 +80,12 @@ li {
     color: var(--text-color);
     list-style: none;
     margin: 20px 0;
-    padding: 10px
+    padding: 4px;
 }
 .comment-card p,
 li p {
     margin: 0;
+    margin-left: 40px;
 }
 
 textarea {
