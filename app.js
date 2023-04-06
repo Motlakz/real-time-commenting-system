@@ -83,20 +83,30 @@ fetch("data.json")
       }
     });
     
-    function handleVoteClick(event, increment) {
-      const countElement = event.target.closest('.votes').querySelector('.count');
-      let currentCount = parseInt(countElement.innerText);
-      
-      if (increment) {
-        currentCount++;
+    var modal = document.getElementById("myModal");
+var btn = document.getElementById("myBtn");
+var span = document.getElementsByClassName("close")[0];
+
+function handleVoteClick(event, increment) {
+  const countElement = event.target.closest('.votes').querySelector('.count');
+  let currentCount = parseInt(countElement.innerText);
+  const alreadyVoted = event.target.dataset.voted === 'true';
+
+  if (alreadyVoted) {
+    modal.style.display = "block";
       } else {
-        currentCount--;
-        if (currentCount < 0) { 
-          currentCount = 0;
+        if (increment) {
+          currentCount++;
+        } else {
+          currentCount--;
+          if (currentCount < 0) { 
+            currentCount = 0;
+          }
         }
+        
+        countElement.innerText = currentCount;
+        event.target.dataset.voted = 'true';
       }
-      
-      countElement.innerText = currentCount;
     }
     
     const upvoteElements = document.querySelectorAll('.upvote');
@@ -111,8 +121,17 @@ fetch("data.json")
       downvoteElement.addEventListener('click', (event) => {
         handleVoteClick(event, false);
       });
-    });
-    
+    });    
+
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
 
     // Create currentUser HTML element for a user that is viewing and about to make a new comment or send a reply
     const currentUserElement = document.createElement('div');
