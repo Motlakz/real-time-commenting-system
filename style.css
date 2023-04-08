@@ -54,7 +54,8 @@ main {
 .count {
     color: var(--primary-background-color);
 }
-.modal {
+.modal,
+.delete-modal {
     display: none; 
     position: fixed; 
     z-index: 1; 
@@ -62,11 +63,12 @@ main {
     top: 0;
     width: 100%; 
     height: 100%; 
-    overflow: auto; 
-    background-color: rgba(0,0,0,0.8); 
+    overflow: hidden; 
+    background-color: rgba(0,0,0,0.9); 
 }
   
-.modal-content {
+.modal-content,
+.delete-modal-content {
     background-color: var(--primary-background-color);
     border-radius: 30px;
     border: 2px solid var(--primary-border-color);
@@ -76,8 +78,46 @@ main {
     padding: 30px;
     width: 500px;
     height: 20vh;
-    position: relative;
-    top: 100px;
+}
+
+.delete-modal-content {
+  background-color: var(--count-background-color);
+  height: 30vh;
+}
+.delete-modal-content p {
+  animation: zoom-in-zoom-out 1s ease infinite;
+  position: relative;
+  top: 60px;
+  text-align: center;
+  text-shadow: 5px 5px 5px var(--link-color);
+}
+.modal-buttons {
+  text-align: center;
+  position: relative;
+  top: 100px;
+}
+.modal-buttons a{
+  border: 1.5px solid var(--card-background-color);
+  border-radius: 8px;
+  cursor: pointer;
+  margin: 10px;
+  padding: 7px;
+  text-decoration: none;
+}
+.cancel {
+  background-color: var(--primary-border-color);
+}
+.cancel:hover {
+  background-color: lightgrey;
+  color: var(--text-color)
+}
+.delete-confirm-btn {
+  background-color: rgb(201, 57, 57);
+  color: white;
+}
+.delete-confirm-btn:hover {
+  background-color: rgb(171, 59, 59);
+  color: var(--card-background-color);
 }
 .modal-content p {
     animation: zoom-in-zoom-out 1s ease infinite;
@@ -85,6 +125,9 @@ main {
     top: 25px;
     text-align: center;
     text-shadow: 5px 5px 5px var(--count-background-color);
+}
+.delete-modal-content .close {
+  color: var(--primary-background-color);
 }
 .close {
     border-radius: 50%;
@@ -122,6 +165,12 @@ main {
     margin: 20px 0;
     padding: 4px;
 }
+.new-comment-card img {
+    position: relative;
+    left: 20px;
+    bottom: 50px;
+    height: 50px;
+}
 
 ul{
     border-left: 2px solid var(--primary-border-color);
@@ -137,6 +186,9 @@ ul li .replies{
     margin: 20px 0;
     padding: 25px 25px 25px 10px;
 }
+ul li .replies .details {
+  padding-right: 0;
+}
 
 .comment-card p,
 li p {
@@ -146,23 +198,68 @@ li p {
 
 textarea {
     border-radius: 8px;
+    margin-left: 50px;
+    height: 100px;
     max-width: 500px;
+}
+textarea:focus {
+    border: 2px solid var(--link-color);
+    outline: none;
+}
+button[type=submit] {
+    background-color: var(--link-color);
+    border-radius: 5px;
+    color: var(--primary-border-color);
+    position: relative;
+    bottom: 50px;
+    left: 30px;
+    padding: 8px;
 }
 
 .cross {
     font-size: 18px;
 }
-.reply-btn,
-.delete-btn {
+.buttons {
     float: right;
-    padding-left: 20px;
+}
+.details span a {
+    float: right;
+}
+.reply-btn,
+.delete-btn,
+.hide-btn {
+    background-color: var(--primary-border-color);
+    border: 1px solid var(--primary-background-color);
+    border-radius: 5px;
+    font-size: 14px;
+    padding: 10px;
+    margin-left: 5px;
+    text-decoration: none;
 }
 .delete-btn {
     color: rgb(201, 57, 57);
 }
+.delete-btn:hover,
+.delete-btn:active {
+    background-color: rgb(201, 57, 57);
+    color: var(--primary-background-color);
+}
+.hide-btn:active,
+.hide-btn:hover {
+    color: var(--primary-border-color);
+    background-color: var(--primary-background-color);
+}
 
-.modal {
+.modal,
+.delete-modal {
     display: none;
+}
+.footer {
+  color: var(--primary-border-color);
+  display: flex;
+}
+.footer a {
+  color: var(--link-color);
 }
 
 @keyframes zoom-in-zoom-out {
@@ -174,5 +271,189 @@ textarea {
     }
     100% {
       transform: scale(1, 1);
+    }
+  }
+
+
+  /* For viewports smaller than 320px */
+@media (max-width: 320px) {
+    .modal-content,
+    .delete-modal-content {
+      top: 100px;
+    }
+    .comment-card,
+    ul li {
+      font-size: 12px;
+    }
+    ul {
+        margin-left: 20px;
+    }
+    ul li .replies,
+    .comment-card{
+        padding: 5px;
+    }
+    
+    .votes {   
+        font-size: 15px;
+        margin-top: 10px;
+        padding: 3px;
+    }
+    
+    .upvote img,
+    .downvote img {
+        background-color: var(--text-color);
+        border-radius: 50%;
+        padding: 3px;
+    }
+    .details {
+      display: block;
+      margin-bottom: 10px;
+      padding-bottom: 0;
+    }
+  
+    .details img {
+      float: left;
+      margin-right: 10px;
+    }
+  
+    .details span {
+      display: block;
+      margin-bottom: 5px;
+    }
+  
+    .details small {
+      display: block;
+      margin-bottom: 5px;
+    }
+  
+    .new-comment-card {
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+    .new-comment-card img {
+        left: 0;
+        bottom: 0;
+        height: 45px;
+    }
+    textarea{
+        margin-left: 0;
+    }
+  
+    #new-comment {
+      width: 100%;
+    }
+  
+    button[type="submit"] {
+      width: 100%;
+      left: 0;
+      top: 0;
+    }
+  }
+  
+  /* For viewports between 320px and 475px */
+  @media (min-width: 321px) and (max-width: 475px) {
+    .modal-content,
+    .delete-modal-content {
+      top: 100px;
+    }
+    .comment-card,
+    ul li {
+      font-size: 14px;
+    }
+  
+    .details {
+      display: block;
+      margin-bottom: 10px;
+      padding-bottom: 0;
+    }
+  
+    .details img {
+      float: left;
+      margin-right: 10px;
+    }
+  
+    .details span {
+      display: block;
+      margin-bottom: 5px;
+    }
+  
+    .details small {
+      display: block;
+      margin-bottom: 5px;
+    }
+  
+    .new-comment-card {
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+    .new-comment-card img {
+        left: 0;
+        bottom: 0;
+        height: 45px;
+    }
+    textarea{
+        margin-left: 0;
+    }
+  
+    #new-comment {
+      width: 100%;
+    }
+  
+    button[type="submit"] {
+      width: 100%;
+      left: 0;
+      top: 0;
+    }
+  }
+  
+  /* For viewports between 475px and 600px */
+  @media (min-width: 476px) and (max-width: 600px) {
+    .modal-content,
+    .delete-modal-content {
+      top: 100px;
+    }
+    .details {
+      display: block;
+      padding: 0;
+    }
+  
+    .details img {
+      float: left;
+      margin-right: 10px;
+    }
+  
+    .details span {
+      display: block;
+      margin-bottom: 5px;
+    }
+  
+    .details small {
+      display: block;
+      margin-bottom: 5px;
+    }
+  
+    .new-comment-card {
+      margin-top: 20px;
+      margin-bottom: 20px;
+      
+    }
+    .new-comment-card img {
+        left: 0;
+        bottom: 0;
+        height: 45px;
+    }
+    textarea{
+        margin-left: 0;
+    }
+  
+    #new-comment {
+      width: 100%;
+    }
+  
+    button[type="submit"] {
+      display: block;
+      left: 0;
+      top: 0;
+      width: 50%;
     }
   }

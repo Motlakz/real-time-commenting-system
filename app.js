@@ -33,7 +33,6 @@ fetch("data.json")
                 <span>${comment.user.username}</span>
                 <small>${comment.createdAt}</small>
                 <span><a href="" class="reply-btn"><i class="fas fa-reply"> </i> Reply</a></span>
-                <span><a href="" class="delete-btn"><i class="fas fa-trash"> </i> Delete</a></span>
             </div>
             <div class="comment">
                 <p>${comment.content}</p>
@@ -70,7 +69,7 @@ fetch("data.json")
                     </div>
             
                     <div class="reply">
-                        <p>${reply.content}</p>
+                      <p>${reply.content}</p>
                     </div>
                 </div>
             </li>
@@ -82,6 +81,58 @@ fetch("data.json")
         commentsSection.appendChild(repliesElement);
         }
       });
+      
+    // function that increases and decreases votes on click
+    function handleVoteCount(event, increment) {
+      const countElement = event.target.closest('.votes').querySelector('.count');
+      let currentCount = parseInt(countElement.innerText);
+      const alreadyVoted = event.target.dataset.voted === 'true';
+
+      if (alreadyVoted) {
+        modal.style.display = "block";
+          } else {
+            if (increment) {
+              currentCount++;
+            } else {
+              currentCount--;
+              if (currentCount < 0) { 
+                currentCount = 0;
+              }
+            }
+            countElement.innerText = currentCount;
+            event.target.dataset.voted = 'true';
+          }
+      }
+    
+      // if upvote is clicked, let vote added be true
+      const upvoteElements = document.querySelectorAll('.upvote');
+      upvoteElements.forEach((upvoteElement) => {
+        upvoteElement.addEventListener('click', (event) => {
+          handleVoteCount(event, true);
+        });
+      });
+        
+      // if downvote is clicked, let vote decreased be true/vote increased be false
+      const downvoteElements = document.querySelectorAll('.downvote');
+      downvoteElements.forEach((downvoteElement) => {
+        downvoteElement.addEventListener('click', (event) => {
+          handleVoteCount(event, false);
+        });
+      });
+
+      // modal that tells user they've already voted
+      var modal = document.getElementById("myModal");
+      var closeBtn = document.getElementsByClassName("close")[0];
+
+      closeBtn.onclick = function() {
+        modal.style.display = "none";
+      }
+
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      }
 
       // Create currentUser HTML element for a user that is viewing and about to make a new comment or send a reply
       const currentUserElement = document.createElement('div');
@@ -96,59 +147,6 @@ fetch("data.json")
       `;
       commentsSection.appendChild(currentUserElement);
       
-      // modal that tells user they've already voted
-      var modal = document.getElementById("myModal");
-      var btn = document.getElementById("myBtn");
-      var span = document.getElementsByClassName("close")[0];
-
-      // function that increases and decreases votes on click
-      function handleVoteClick(event, increment) {
-        const countElement = event.target.closest('.votes').querySelector('.count');
-        let currentCount = parseInt(countElement.innerText);
-        const alreadyVoted = event.target.dataset.voted === 'true';
-
-        if (alreadyVoted) {
-          modal.style.display = "block";
-            } else {
-              if (increment) {
-                currentCount++;
-              } else {
-                currentCount--;
-                if (currentCount < 0) { 
-                  currentCount = 0;
-                }
-              }
-              countElement.innerText = currentCount;
-              event.target.dataset.voted = 'true';
-            }
-          }
-      
-          // if upvote is clicked, let vote added be true
-          const upvoteElements = document.querySelectorAll('.upvote');
-          upvoteElements.forEach((upvoteElement) => {
-            upvoteElement.addEventListener('click', (event) => {
-              handleVoteClick(event, true);
-            });
-          });
-          
-          // if downvote is clicked, let vote decreased be true/vote increased be false
-          const downvoteElements = document.querySelectorAll('.downvote');
-          downvoteElements.forEach((downvoteElement) => {
-            downvoteElement.addEventListener('click', (event) => {
-              handleVoteClick(event, false);
-            });
-          });
-
-          span.onclick = function() {
-            modal.style.display = "none";
-          }
-
-          window.onclick = function(event) {
-            if (event.target == modal) {
-              modal.style.display = "none";
-            }
-          }
-      
         // Retrieve the "SEND" button element
         const sendButton = document.querySelector('button[type="submit"]');
         
@@ -157,7 +155,7 @@ fetch("data.json")
           // Retrieve the value of the comment textarea
           const commentTextarea = document.getElementById('new-comment');
           const comment = commentTextarea.value;
-
+          
           // Create a new reply object with the comment and other relevant data
           const reply = {
             user: data.currentUser,
@@ -181,7 +179,7 @@ fetch("data.json")
           const replyElement = document.createElement('li');
           const replyContent = document.createElement('div');
           replyContent.classList.add('replies');
-        
+
           const votesElement = document.createElement('span');
           votesElement.classList.add('votes');
           votesElement.innerHTML = `
@@ -193,28 +191,57 @@ fetch("data.json")
               <img src="./images/icon-minus.svg">
             </div>
           `;
-        
+
           const detailsElement = document.createElement('div');
           detailsElement.classList.add('details');
           detailsElement.innerHTML = `
             <img src="${reply.user.image.png}" srcset="${reply.user.image.png} 1x, ${reply.user.image.webp} 2x" alt="${reply.user.username}">
             <span>${reply.user.username}</span>
             <small>${reply.createdAt}</small>
-            <span><a href="" class="reply-btn"><i class="fas fa-reply"> </i> Reply</a></span>
-            <span><a href="" class="delete-btn"><i class="fas fa-trash"> </i> Delete</a></span>
+            <div class="buttons">
+              <span><a href="" class="hide-btn"><i class="fas fa-eye"> </i> Hide Reply</a></span>
+              <span><a href="" class="delete-btn"><i class="fas fa-trash"> </i> Delete</a></span>
+            </div>
           `;
-        
+
           const contentElement = document.createElement('p');
           contentElement.innerText = reply.content;
-        
+
           replyContent.appendChild(votesElement);
           replyContent.appendChild(detailsElement);
           replyContent.appendChild(contentElement);
-        
+
           replyElement.appendChild(replyContent);
-        
+
+          const hideButton = detailsElement.querySelector('.hide-btn');
+          hideButton.addEventListener('click', function(event) {
+            event.preventDefault();
+            replyElement.style.filter = "blur(3px)";
+          });
+
+          const deleteButton = detailsElement.querySelector('.delete-btn');
+          deleteButton.addEventListener('click', function(event) {
+            event.preventDefault();
+            const modal = document.querySelector('.delete-modal');
+            modal.style.display = 'block';
+            const deleteConfirmBtn = document.querySelector('#delete-confirm-btn');
+            deleteConfirmBtn.addEventListener('click', function(event) {
+              event.preventDefault();
+              replyElement.remove();
+              modal.style.display = 'none';
+            });
+            const cancelBtns = document.querySelectorAll('.cancel, .close');
+            for (let i = 0; i < cancelBtns.length; i++) {
+              cancelBtns[i].addEventListener('click', function(event) {
+                event.preventDefault();
+                modal.style.display = 'none';
+              });
+            }
+          });
+
           return replyElement;
-        }
+        }        
+          
   })
 
   // throw an error to the console if the data doesn't reflect
