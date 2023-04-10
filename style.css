@@ -87,14 +87,14 @@ main {
 .delete-modal-content p {
   animation: zoom-in-zoom-out 1s ease infinite;
   position: relative;
-  top: 60px;
+  top: 20px;
   text-align: center;
   text-shadow: 5px 5px 5px var(--link-color);
 }
 .modal-buttons {
   text-align: center;
   position: relative;
-  top: 100px;
+  top: 60px;
 }
 .modal-buttons a{
   border: 1.5px solid var(--card-background-color);
@@ -122,7 +122,7 @@ main {
 .modal-content p {
     animation: zoom-in-zoom-out 1s ease infinite;
     position: relative;
-    top: 25px;
+    top: 20px;
     text-align: center;
     text-shadow: 5px 5px 5px var(--count-background-color);
 }
@@ -157,15 +157,15 @@ main {
 .details small {
     margin-left: 20px;
 }
-.new-comment-card,
-.comment-card {
+div.new-comment-card,
+div.comment-card {
     background-color: var(--card-background-color);
     border-radius: 10px;
     color: var(--text-color);
     margin: 20px 0;
-    padding: 4px;
+    padding: 20px;
 }
-.new-comment-card img {
+div.new-comment-card img {
     position: relative;
     left: 20px;
     bottom: 50px;
@@ -184,16 +184,19 @@ ul li .replies{
     border-radius: 10px;
     color: var(--text-color);
     margin: 20px 0;
-    padding: 25px 25px 25px 10px;
+    padding: 20px;
 }
 ul li .replies .details {
   padding-right: 0;
 }
 
-.comment-card p,
+div.comment-card p,
 li p {
     margin: 0;
     margin-left: 40px;
+}
+.edit-textarea {
+  margin-top: 20px;
 }
 
 textarea {
@@ -227,7 +230,10 @@ button[type=submit] {
 }
 .reply-btn,
 .delete-btn,
-.hide-btn {
+.hide-btn,
+.edit-btn,
+.save-btn,
+.cancel-btn {
     background-color: var(--primary-border-color);
     border: 1px solid var(--primary-background-color);
     border-radius: 5px;
@@ -245,7 +251,9 @@ button[type=submit] {
     color: var(--primary-background-color);
 }
 .hide-btn:active,
-.hide-btn:hover {
+.hide-btn:hover,
+.edit-btn:hover,
+.save-btn:hover {
     color: var(--primary-border-color);
     background-color: var(--primary-background-color);
 }
@@ -280,22 +288,36 @@ button[type=submit] {
     .modal-content,
     .delete-modal-content {
       top: 100px;
+      width: 100%; 
     }
-    .comment-card,
-    ul li {
+    .modal-content p,
+    .delete-modal-content p {
+      top: 10px;
+    }
+    .modal-buttons {
+      top: 30px;
+    }
+    .close {
+      position: relative;
+      left: 15px;
+      bottom: 25px;
+    }
+    div.comment-card,
+    ul li .replies {
       font-size: 12px;
+      padding: 10px;
     }
     ul {
         margin-left: 20px;
     }
-    ul li .replies,
-    .comment-card{
-        padding: 5px;
+  
+    div.comment-card p,
+    ul li p {
+      margin-left: 30px;
     }
-    
     .votes {   
         font-size: 15px;
-        margin-top: 10px;
+        margin: 0;
         padding: 3px;
     }
     
@@ -307,6 +329,7 @@ button[type=submit] {
     }
     .details {
       display: block;
+      margin-left: 7px;
       margin-bottom: 10px;
       padding-bottom: 0;
     }
@@ -326,11 +349,11 @@ button[type=submit] {
       margin-bottom: 5px;
     }
   
-    .new-comment-card {
+    div.new-comment-card {
       margin-top: 20px;
       margin-bottom: 20px;
     }
-    .new-comment-card img {
+    div.new-comment-card img {
         left: 0;
         bottom: 0;
         height: 45px;
@@ -338,11 +361,29 @@ button[type=submit] {
     textarea{
         margin-left: 0;
     }
-  
-    #new-comment {
+    #new-comment,
+    .edit-textarea {
       width: 100%;
     }
-  
+    .buttons {
+      padding: 10px 0;
+      position: relative;
+      right: 20px;
+    }
+
+    .buttons a,
+    .reply-btn {
+      font-size: 12px;
+      padding: 3px;
+    }
+    .reply-btn {
+      position: relative;
+      bottom: 30px;
+    }
+    .comment-card .reply-btn {
+      position: relative;
+      left: 20px;
+    }
     button[type="submit"] {
       width: 100%;
       left: 0;
@@ -352,18 +393,38 @@ button[type=submit] {
   
   /* For viewports between 320px and 475px */
   @media (min-width: 321px) and (max-width: 475px) {
+    .close {
+      position: relative;
+      left: 15px;
+      bottom: 20px;
+    }
+    .comment-card .votes {
+      left: 0.5px;
+    }
+    .replies .votes {
+      left: 82px
+    }
     .modal-content,
     .delete-modal-content {
       top: 100px;
+      width: 100%; 
     }
-    .comment-card,
-    ul li {
+    .modal-content p,
+    .delete-modal-content p {
+      top: 10px;
+    }
+    .modal-buttons {
+      top: 30px;
+    }
+    div.comment-card,
+    ul li .replies{
       font-size: 14px;
     }
-  
+    
     .details {
       display: block;
       margin-bottom: 10px;
+      padding-left: 5px;
       padding-bottom: 0;
     }
   
@@ -382,23 +443,42 @@ button[type=submit] {
       margin-bottom: 5px;
     }
   
-    .new-comment-card {
+    div.new-comment-card {
       margin-top: 20px;
       margin-bottom: 20px;
     }
-    .new-comment-card img {
+    div.new-comment-card img {
         left: 0;
         bottom: 0;
         height: 45px;
     }
-    textarea{
+    textarea {
         margin-left: 0;
     }
   
-    #new-comment {
+    #new-comment,
+    .edit-textarea {
       width: 100%;
     }
-  
+    .buttons {
+      display: flex;
+      float: none;
+      padding: 10px 0 0 15px;
+    }
+    .buttons a,
+    .reply-btn {
+      font-size: 14px;
+      margin: 5px;
+      padding: 5px;
+    }
+    .reply-btn {
+      position: relative;
+      bottom: 45px;
+    }
+    .comment-card .reply-btn {
+      position: relative;
+      left: 20px;
+    }
     button[type="submit"] {
       width: 100%;
       left: 0;
@@ -408,13 +488,25 @@ button[type=submit] {
   
   /* For viewports between 475px and 600px */
   @media (min-width: 476px) and (max-width: 600px) {
+    body {
+      font-size: 14px;
+    }
+    .votes {
+      padding: 3px;
+    }
     .modal-content,
     .delete-modal-content {
       top: 100px;
+      width: 100%; 
+    }
+    div.comment-card,
+    ul li .replies {
+      padding:15px;
     }
     .details {
       display: block;
-      padding: 0;
+      margin-left: 40px;
+      padding: 10px 0;
     }
   
     .details img {
@@ -432,22 +524,37 @@ button[type=submit] {
       margin-bottom: 5px;
     }
   
-    .new-comment-card {
+    div.new-comment-card {
       margin-top: 20px;
       margin-bottom: 20px;
       
     }
-    .new-comment-card img {
+    div.new-comment-card img {
         left: 0;
         bottom: 0;
         height: 45px;
     }
     textarea{
         margin-left: 0;
+        max-width: 100%;
     }
   
-    #new-comment {
+    #new-comment,
+    .edit-textarea {
       width: 100%;
+    }
+    .buttons {
+      position: relative;
+      bottom: 40px;
+    }
+
+    .buttons a,
+    .reply-btn {
+      padding: 6px;
+    }
+    .reply-btn {
+      position: relative;
+      bottom: 45px;
     }
   
     button[type="submit"] {
@@ -457,3 +564,13 @@ button[type=submit] {
       width: 50%;
     }
   }
+
+@media screen and (min-width: 601px) {
+  .new-comment-card {
+    padding: 20px 0 0 0;
+  }
+  .comment-card .reply-btn {
+    position: relative;
+    left: 20px;
+  }
+}
