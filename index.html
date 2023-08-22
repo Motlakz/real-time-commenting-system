@@ -6,17 +6,41 @@
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
   <title>Frontend Mentor | Interactive comments section</title>
   <link rel="stylesheet" href="style.css">
-
+  <script src="https://kit.fontawesome.com/1dd55a644d.js" crossorigin="anonymous"></script>
 </head>
 <body>
+
   <main id="comments-section">
-    <!--Parse JS code here-->
+    <!--Parse JavaScript Data here-->
+    <!-- Vote Modal -->>
+      <div id="myModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <p>You already voted on this comment/reply!</p>
+        </div>
+      </div>
+
+      <!-- Delete Modal -->
+      <div class="delete-modal">
+        <h4 class="modal-title">Delete comment</h4>
+        
+        <div class="delete-modal-content">
+          <span class="close">&times;</span>
+          <p>Are you sure you want to delete this comment? This action cannot be reversed.</p>
+          <div class="modal-buttons">
+            <a href="" class="cancel" data-dismiss="modal">Cancel</a>
+            <a href="" class="delete-confirm-btn" id="delete-confirm-btn">Delete</a>
+          </div>
+        </div>
+       
+      </div>
   </main>
   
   <footer class="footer">
     <p>Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.</p>
     <p>Coded by <a href="#">Motlalepula Sello</a>.</p>
   </footer>
-  <script src="./script.js"></script>
+  <script src="./app.js"></script>
+
 </body>
 </html>
